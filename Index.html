@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>
+            D_PC_control
+        </title>
+        <style>
+                body{
+                    background-color:#c3f6cc
+                }
+                #f1{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #ac53a6;
+                    box-shadow: 0 4px 5px 0 rgb(100 100 100 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+                    border-radius: 5px;
+                }
+                #button1{
+                    width: 50vmin;
+                    height: 50vmin;
+                    margin: auto;
+                    background-color: white;
+                    border-radius: 50%;
+                    box-shadow: 0 4px 5px 0 rgba(33, 31, 31, 0.2), 0 6px 20px 0 rgba(33, 31, 31, 0.2);
+                    margin: 20px;
+                    font-size: 20vmin;
+                    font-weight: 100;
+                    color: rgba(190,180,220,.8);
+                    transition-duration: .5s;
+                    border: 25px solid rgba(0,255,200,.5);
+                }
+                #button1:hover{
+                    cursor: pointer;
+                    box-shadow: 0 4px 10px 0 rgb(61, 58, 58), 0 6px 30px 0 rgb(61, 58, 58);
+                    color: rgba(140,140,220,.9);
+                    transform: scale(1.05);
+                }
+                #button1:active{
+                    transform: scale(.9);
+                    color: rgba(255,100,100,.9);
+                }
+                .os{
+                    background-color: rgb(43, 34, 34);
+                    color: silver;
+                    font-size: x-large;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                }
+                .os:active{
+                    transform: scale(1.01);
+                }
+                .genericText{
+                    font-family: Canva Sans,Noto Sans Variable,Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+                    font-size: xx-large;
+                }
+        </style>
+    </head>
+    <body>
+        <div id="f1">
+            <table class="genericText">
+                <th style="color: rgb(219, 219, 219,.9);">
+                    HeadLess PC boot Control
+                </th>
+            <tr>
+                    <td>
+                        <button type="submit" id="button1" class="genericText" onclick="submit()">O</button>
+                    </td>
+            </tr>
+            <tr align="center">
+                    <td class="os">
+                        Boot_OS:
+                        <select class="os" id="os">
+                            <option value="1">Windows</option>
+                            <option value="2">Linux</option>
+                        </select>
+                    </td>
+            </tr>
+            <tr align="center">
+                <td class="genericText" id="Stat">
+                    Status:
+                </td>
+            </tr>            
+        </table>
+    </div>
+    <script lang="javascript">
+        let butn=document.getElementById("button1");
+        let os=document.getElementById("os");
+        let flag=0;
+        let status=document.getElementById("Stat")
+        function submit() {
+            butn.style.transform = "scale(0.9)";
+            butn.style.color="rgba(255,100,100,.9)";
+            butn.style.border="25px solid rgba(200,125,20,.6)"
+            if(!flag){
+                flag=1
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    stats.innerHTML="Status: Request sent for os :"+(os.value==1?"Windows":"Kali")
+                }
+                xhttp.open("GET", '/os'+os.value, true);
+                xhttp.send();            
+            }
+        }
+    </script>
+    </body>
+</html>
