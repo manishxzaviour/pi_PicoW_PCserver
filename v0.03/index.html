@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script lang="javascript" src="./index.js" defer></script>
+    <title>POG</title>
+</head>
+<body>
+    <div id="header" clas="wrapper">
+        <div id="ttle" class="genericText">Desktop-PC HID Proxy</div>
+    </div>
+    <div id="mainP" class="wrapper">
+        <div id="content">
+        </div>
+        <div id="menu" class="wrapper">
+            <button type="button" id="menuB" class="genericText" onclick="menuBpress(0)">__menu__</button>
+            <div id="menu_container" class="genericText wrapper menu_container">
+                        <button type="button" class="genericText" id="PC_Boot" onclick="new pcBootC">PC_Boot</button>
+                        <button type="button" class="genericText" id="Keyboard" onclick=" new keybC">Keyboard</button>
+                        <button type="button" class="genericText" id="Mouse">Mouse</button>
+                        <button type="button" class="genericText" id="Keyboard_Mouse">Keyboard_Mouse</button>
+                        <button type="button" class="genericText" id="Keyboard_Macro">Keyboard_Macro</button>
+                        <button type="button" class="genericText" id="DuckyScript">DuckyScript</button>
+            </div> 
+            <button type="button" id="configB" class="genericText" onclick="menuBpress(1)">__config__</button>
+            <div id="config_container" class="genericText wrapper menu_container">
+                <button type="button" class="genericText" id="Keyboard">Keyboard</button>
+                <button type="button" class="genericText" id="Mouse">Mouse</button>
+                <button type="button" class="genericText" id="Keyboard_Mouse">Keyboard_Mouse</button>
+                <button type="button" class="genericText" id="Keyboard_Macro">Keyboard_Macro</button>
+                <button type="button" class="genericText" id="DuckyScript">DuckyScript</button>
+            </div>
+            <button type="button" class="genericText" onclick="window.open((window.location.href).replace('index','abt'), '_blank')" >__about__</button>
+        </div>
+    </div>
+</body>
+</html>

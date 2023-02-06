@@ -6,6 +6,7 @@ import socketpool
 import board
 import microcontroller
 from digitalio import DigitalInOut, Direction
+import mdns
 
 from adafruit_httpserver.server import HTTPServer
 from adafruit_httpserver.request import HTTPRequest
@@ -13,12 +14,12 @@ from adafruit_httpserver.response import HTTPResponse
 from adafruit_httpserver.methods import HTTPMethod
 from adafruit_httpserver.mime_type import MIMEType
 
-import usb_hid
-from adafruit_hid.keycode import Keycode
-from adafruit_hid.keyboard import Keyboard
+#import usb_hid
+#from adafruit_hid.keycode import Keycode
+#from adafruit_hid.keyboard import Keyboard
 
 
-keyboard = Keyboard(usb_hid.devices)
+#keyboard = Keyboard(usb_hid.devices)
 
 led1 = DigitalInOut(board.LED)
 led1.direction = Direction.OUTPUT
@@ -31,9 +32,16 @@ bootP.value = True
 ipv4 =  ipaddress.IPv4Address("192.168.0.180")
 netmask =  ipaddress.IPv4Address("255.255.0.0")
 gateway =  ipaddress.IPv4Address("192.168.0.1")
-wifi.radio.set_ipv4_address(ipv4=ipv4,netmask=netmask,gateway=gateway)
+host=wifi.radio
+host.set_ipv4_address(ipv4=ipv4,netmask=netmask,gateway=gateway)
 
-status="-"
+mdNS= mdns.Server(host)
+mdNS.hostname="dpc"
+
+class glob():
+    status="ON"
+
+glob()
 
 wifi.radio.connect("M 2.4G ", "helloWorld11")
 pool = socketpool.SocketPool(wifi.radio)
@@ -44,7 +52,7 @@ def webpage(status):
     <html>
     <head>
         <title>
-            D_PC_control
+            PC control
         </title>
         <style>
                 body{
@@ -107,113 +115,100 @@ def webpage(status):
                 </th>
             <tr>
                     <td>
-                        <button type="submit" id="button1" class="genericText" onclick="submit()">O</button>
+                        <button id="button1" class="genericText" onclick="submit()">O</button>
                     </td>
             </tr>
             <tr align="center">
-                    <td class="os">
-                        Boot_OS:
-                        <select class="os" id="os">
-                            <option value="1">Linux</option>
-                            <option value="2">Windows</option>
-                        </select>
-                    </td>
             </tr>
             <tr align="center">
                 <td class="genericText" id="Stat">
-                    Status:
+                    <h2 id="Stat" style="color:white">Status:<br>
     """
     html2="""
+            </h2>
             </td>
                     </tr>            
                 </table>
             </div>
             <script lang="javascript">
                 let butn=document.getElementById("button1");
-                let os=document.getElementById("os");
                 let flag=0;
                 let status=document.getElementById("Stat")
                 function submit() {
-                    butn.style.transform = "scale(0.9)";
-                    butn.style.color="rgba(255,100,100,.9)";
-                    butn.style.border="25px solid rgba(200,125,20,.6)"
-                    if(!flag){
-                        flag=1
-                        const xhttp = new XMLHttpRequest();
-                        xhttp.onload = function() {
-                            status.innerHTML="Status: Request sent for os :<br>"+(os.value==2?"Windows":"Kali")
-                        }
-                        xhttp.open("GET", '/os'+os.value, true);
-                        xhttp.send();            
-                    }
-                }
+					butn.style.transform = "scale(0.9)";
+					butn.style.color="rgba(255,100,100,.9)";
+					butn.style.border="25px solid rgba(200,125,20,.6)"
+					if(!flag){
+						flag=1
+						const xhttp = new XMLHttpRequest();
+						xhttp.onload = function() {
+							status.innerHTML+="<h1 style='color:white'>"+xhttp.responseText+"</h1>"
+						}
+						xhttp.open("GET", '/bp', true);
+						xhttp.send();            
+					}
+				}
             </script>
             </body>
         </html>
     """
+    print(status)
     return html1+status+html2
 
 @server.route("/",method=HTTPMethod.GET)
 def base(request: HTTPRequest):
     with HTTPResponse(request, content_type=MIMEType.TYPE_HTML) as response:
-        response.send(webpage(status))
+        response.send(webpage(glob.status))
 
-@server.route("/os1", method=HTTPMethod.GET)
+@server.route("/bp", method=HTTPMethod.GET)
 def route_func(request: HTTPRequest):
     with HTTPResponse(request, content_type=MIMEType.TYPE_HTML) as response:
-        response.send("done")
+        if "ON" in glob.status:
+            response.send("Turning OFF")
+        else:
+            response.send("Turning ON")
         bootP.value=False
         time.sleep(1)
         bootP.value=True
-        f=open("usbstat.txt",'w')
-        f.write("0")
-        f.close()
-        microcontroller.reset()
-        
 
-@server.route("/os1Stat", method=HTTPMethod.GET)
+@server.route("/os1/", method=HTTPMethod.GET)
 def route_func(request: HTTPRequest):
     if request.query_params.get("s")=="con":
-        status="ON[Linux]"
+        glob.status="ON[Linux]"
     else:
-        status="OFF[Linux]"
+        glob.status="OFF[Linux]"
     with HTTPResponse(request, content_type=MIMEType.TYPE_HTML) as response:
         response.send("done")
-        print(status)
-        
-@server.route("/os2", method=HTTPMethod.GET)
-def route_func(request: HTTPRequest):
-    with HTTPResponse(request, content_type=MIMEType.TYPE_HTML) as response:
-        response.send("done")
-        bootP.value=False
-        time.sleep(1)
-        bootP.value=True
-        f=open("usbstat.txt",'w')
-        f.write("1")
-        f.close()
-        microcontroller.reset()
+        print(glob.status)
 
-
-@server.route("/os2Stat", method=HTTPMethod.GET)
+@server.route("/os2/", method=HTTPMethod.GET)
 def route_func(request: HTTPRequest):
     if request.query_params.get("s")=="con":
-        status="ON[Windows]"
+        glob.status="ON[Windows]"
     else:
-        status="OFF[Windows]"
+        glob.status="OFF[Windows]"
     with HTTPResponse(request, content_type=MIMEType.TYPE_HTML) as response:
         response.send("done")
-        print(status)
+        print(glob.status)
+
         
 try:
+    wifi.radio.connect("M 2.4G ", "helloWorld11")
     server.start(str(wifi.radio.ipv4_address))
     print("Listening on http://%s:80" % wifi.radio.ipv4_address)
 except OSError:
     time.sleep(5)
     print("restarting..")
+    microcontroller.reset()
+
+
 
 while True:
     try:
         server.poll()
+        mdNS.advertise_service(service_type="_http", protocol="_tcp", port=80)
     except Exception as e:
         print(e)
         continue
+
+

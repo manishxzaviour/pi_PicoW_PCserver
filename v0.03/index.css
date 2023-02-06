@@ -1,0 +1,75 @@
+body{
+    background-color: #011F2F;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    margin:0;
+}
+.genericText{
+    font-family: Canva Sans,Noto Sans Variable,Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+}
+button{
+    box-shadow: 0px 3px 4px 0 rgb(255, 254, 254), 0 6px 30px 0 rgb(234, 226, 226);
+    transition: .3s;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+}
+button:hover{
+    border: 3px dotted red ;
+    transform: scale(1.2);
+    border-radius: 5px;
+}
+button:active{
+    box-shadow: 0px 3px 4px 0 rgba(255, 254, 254, 0.444), 0 6px 30px 0 rgba(234, 226, 226, 0.444);
+    transform: translateY(10px) scale(.9);
+}
+#header{
+    color:white;
+    text-align: center;
+    margin: auto;
+    font-size: 5vmin;
+}
+#menu{
+    grid-area: menu;
+    position: relative;
+    height: 100%;
+}
+.menu_container{
+    padding: 5px;
+    width: 80%;
+    left:20%;
+    position: relative;
+    display: none;
+}
+.menu_container>button{
+width:100%;
+font-size: 4vmin;
+margin: 5px;
+}
+#menu>button{
+width:100%;
+height: 5vh;
+font-size: 2vmin;
+color: #a7007b;
+border-radius: 5px;
+margin: 5px;
+display: block;
+}
+#content{
+    background-color: rgba(0, 2, 34, 0.2);
+    box-shadow: 0px 0px 20px 5px rgba(255, 255, 255,.1);
+    grid-area: content;
+    height: 100%;
+    margin: 10px;
+    border-radius: 20px;
+}
+#mainP{
+    display: grid;
+    grid-template-areas: 'content menu';
+    grid-template-columns: 90% 10%;
+    height: 90vh;
+}

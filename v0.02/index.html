@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script lang="javascript" src="./index.js" defer></script>
+    <title>POG</title>
+</head>
+<body bgcolor="#011F2F">
+    <h1 id="ttle" class="genericText">Desktop-PC HID Proxy</h1>
+    <button type="button" id="menuB" class="menuB" onclick="menuBpress()" class="genericText">__menu__</button>
+    <div id="menu_container" class="genericText menu_container">
+        <table id="menu" class="menu">
+            <tr>
+                <td>
+                <button type="button" id="PC_Boot" onclick="pcBoot()">PC_Boot</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="button" id="Keyboard">Keyboard</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="button" id="Mouse">Mouse</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="button" id="Keyboard_Mouse">Keyboard_Mouse</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="button" id="Keyboard_Macro">Keyboard_Macro</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="button" id="DuckyScript">DuckyScript</button>
+                </td>
+            </tr>
+        </table>
+    </div> 
+    <button type="button" id="configB" class="menuB" onclick="configBpress()" class="genericText">__config__</button>
+    <div id="config_container" class="genericText menu_container">
+        <table id="config" class="menu">
+        </table>
+    </div>
+    <button type="button" class="menuB" onclick="window.open((window.location.href).replace('index','abt'), '_blank')" class="genericText">__about__</button>
+    <div id="content">
+    </div>
+</body>
+</html>
