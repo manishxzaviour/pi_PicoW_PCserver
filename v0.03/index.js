@@ -252,11 +252,13 @@ class mouseBC{
         this.mouseArea.style.margin="3vmin auto";
         this.mouseArea.style.boxShadow="0px 1px 2px 2px white";
         this.mouseArea.style.borderRadius="2vmin";
-        this.mouseArea.onmouseenter=()=>{this.mouseArea.style.cursor="cell";this.mouseArea.style.border="2vmin solid red";};
-        this.mouseArea.onmouseleave=()=>{this.mouseArea.style.border="";}
-        this.mouseArea.onmousemove=(e)=>{this.mouseM(e)};
-        this.mouseArea.ontouchstart=(e)=>{this.mouseArea.style.border="2vmin solid red";};
+        this.mouseArea.style.cursor="cell";
+        this.mouseArea.onmousemove=(e)=>{this.mouseM(e,0);this.mouseArea.style.border="2vmin solid red";};
+        this.mouseArea.ontouchmove=(e)=>{this.mouseM(e,1);this.mouseArea.style.border="2vmin solid red";};
+        this.mouseArea.onwheel=(e)=>{this.scrollCh(e,1);};
         this.mouseArea.ontouchend=()=>{this.mouseArea.style.border="";};
+        this.mouseArea.onmouseleave=()=>{this.mouseArea.style.border="";};
+
         this.rclk.style.width="20%";
         this.lclk.style.width="20%";
         this.rclk.innerHTML="R";
@@ -278,18 +280,20 @@ class mouseBC{
         this.scroll.style.borderRadius="5vmin";
         this.scroll.style.height="5vh";
         this.scroll.classList="ui";
-        this.scroll.onchange=()=>{this.scrollCh(this.scroll.value);this.scroll.value="50"};
+        this.scroll.onchange=()=>{this.scrollCh(this.scroll.value,1);this.scroll.value="50"};
         content.appendChild(this.mouseArea);
         content.appendChild(this.scroll);
         content.appendChild(this.rclk);
         content.appendChild(this.lclk);
     }
-    scrollCh(val){}
+    scrollCh(val,m){}
     rDwn(){}
     rUp(){}
     lDwn(){}
     lUp(){}
-    mouseM(e){console.log(e);}
+    mouseM(e,m){
+        e.preventDefault();
+        console.log(m);}
 }
 var c = new mouseBC();
 
