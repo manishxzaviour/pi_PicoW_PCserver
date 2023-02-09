@@ -21,19 +21,18 @@
                         <button type="button" class="genericText" id="PC_Boot" onclick="new pcBootC">PC_Boot</button>
                         <button type="button" class="genericText" id="Keyboard" onclick=" new keyBC">Keyboard</button>
                         <button type="button" class="genericText" id="Mouse" onclick="new mouseBC">Mouse</button>
-                        <button type="button" class="genericText" id="Keyboard_Mouse">Keyboard_Mouse</button>
-                        <button type="button" class="genericText" id="Keyboard_Macro">Keyboard_Macro</button>
-                        <button type="button" class="genericText" id="DuckyScript">DuckyScript</button>
+                        <button type="button" class="genericText" id="Keyboard_Macro" onclick="document.body.style.overflow='auto'; new keyMacro;">Keyboard_Macro</button>
+                        <button type="button" class="genericText" id="DuckyScript" onclick="new duckyBC">DuckyScript</button>
             </div> 
             <button type="button" id="configB" class="genericText" onclick="menuBpress(1)">__config__</button>
             <div id="config_container" class="genericText wrapper menu_container">
                 <button type="button" class="genericText" id="Keyboard">Keyboard</button>
                 <button type="button" class="genericText" id="Mouse">Mouse</button>
-                <button type="button" class="genericText" id="Keyboard_Mouse">Keyboard_Mouse</button>
-                <button type="button" class="genericText" id="Keyboard_Macro">Keyboard_Macro</button>
+                <button type="button" class="genericText" id="Keyboard_Macro" onclick="document.body.style.overflow='auto';new keyMacroConfig;">Keyboard_Macro</button>
                 <button type="button" class="genericText" id="DuckyScript">DuckyScript</button>
+                <button type="button" class="genericText" id="Self">Self</button>
             </div>
-            <button type="button" class="genericText" onclick="window.open((window.location.href).replace('index','abt'), '_blank')" >__about__</button>
+            <button type="button" class="genericText" onclick="window.open(window.location.href+'/abt', '_blank')" >__about__</button>
         </div>
     </div>
 </body>
