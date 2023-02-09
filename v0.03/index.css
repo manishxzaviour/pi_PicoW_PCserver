@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body{
     background-color: #011F2F;
     overflow: hidden;
@@ -19,8 +22,8 @@ button{
     display: inline-block;
 }
 button:hover{
-    border: 3px dotted red ;
-    transform: scale(1.2);
+    border: 3px dotted red !important;
+    transform: scale(1.2) translateY(-10px);
     border-radius: 5px;
 }
 button:active{
@@ -73,3 +76,19 @@ display: block;
     grid-template-columns: 90% 10%;
     height: 90vh;
 }
+.ui{
+    -webkit-appearance: none;
+  } 
+  .ui::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 3px solid silver;
+    box-shadow: 0px 3px 4px 0 rgb(255, 254, 254);
+    appearance: none;
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+    background: #7245e4;
+    cursor: pointer;
+  }
+  
+  
